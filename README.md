@@ -14,22 +14,28 @@ Simply download and run the file in Thonny program, Python IDLE or VS code.
 
 ## Future Fetures
 Below are some of the planned enchancements for the Dice Simulation project:
-**1. Track Results**
+
+1. Track Results
     - Branch: 'track-results'
     - Description: Add functionality to track and display the results of each roll session.
-**2. Statistics and Analytics**
+      
+2. Statistics and Analytics
     - Branch: 'statistics'
     - Description: Implement features to calculate and display statistics such as the frequency of each number rolled.
-**3. User Customization**
+      
+3. User Customization
     - Branch: 'user-customization'
     - Description: Allow users to set the number of dice and the range of dice faces.
-**4. Save and Load Game State**
+      
+4. Save and Load Game State
     - Branch: 'save-load'
     - Description: Implement saving and loading of game states so users can resume from where they left off.
-**5. Improved User Interface**
+      
+5. Improved User Interface
     - Branch: 'ui-enhancements'
     - Description: Enhance the user interface with better prompts, graphics, or a graphical user interface (GUI).
-**6. Multiplayer Mode**
+      
+6. Multiplayer Mode
     - Branch: 'multiplayer'
     - Description: Add a multiplayer mode where multiple users can roll dice in a game setting.
 

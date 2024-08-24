@@ -41,3 +41,8 @@ Below are some of the planned enchancements for the Dice Simulation project:
 
 ## Contributing
 Feel free to contibute by creating issues or submiting pull requests for any of the planned fetures or improvements.
+
+## Usage
+To use the Dice Simulation:
+1. Run the script.
+2. Follow the prompts to roll dice, switch between rolling one or two dice, or stop playing.

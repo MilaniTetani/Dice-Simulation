@@ -1,4 +1,5 @@
 import random
+from collections import Counter
 
 results = []  # holds the results of each roll
 roll_history = [] # list to store roll results
@@ -48,6 +49,35 @@ def display_roll_history():
     for i, result in enumerate(history, 1):
         print(f"Roll {i}: {result}")
 
+# Statistics Calculations
+
+def calculate_statistics():
+    """Function to calculate and display statistics of dice rolls."""
+    # checks if there's anything in roll_history
+    if not roll_history:
+        print("No Rolls Recorded Yet!")
+        return
+    
+    # flatten roll_history to make sure we can all dice rolls,
+    # even if they were rolled as pairs
+    """"Flattening" refers to the process of converting a complex structure, like a list of lists or a list of tuples, into a simpler, single-level list."""
+    flattened_history = []
+    for number in roll_history: # If number is a tuple (like from rolling two dice)
+        if isinstance(number, tuple):
+            flattened_history.extend(number) # Add each part of the tuple to the list
+        else:
+            flattened_history.append(number) # If it's a single number, just add it
+    
+    # using Counter to count how times each number appears in the list
+    roll_counter = Counter(flattened_history)
+
+    # display the stats
+    print("\nRoll Statistics:")
+    for num in range(1, 7):
+        print(f"Number {num}: {roll_counter.get(num, 0)} times")
+    
+    print(f"\nTotal Rolls: {len(roll_history)}")
+
 
 def main():
     print("\nWelcome to the Dice Simulation Game! \n")
@@ -85,7 +115,8 @@ def main():
             else:
                 print("Wrong Input! Please enter 'switch', 'play', 'h', or 'stop' ")
             
-        display_results()
+        display_results() # Display the results of the dice rolls
+        calculate_statistics() # Display the roll statistics
         print("\nThank You for Playing!")  # End of the game
         break  # Exit the outer loop to completely stop the game
 

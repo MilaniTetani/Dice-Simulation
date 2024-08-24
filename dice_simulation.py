@@ -1,5 +1,7 @@
 import random
 
+results = []  # holds the results of each roll
+
 def roll_dice(): 
     """Function that rolls/simulates a random dice number between 1 and 6."""
     return random.randint(1, 6) 
@@ -9,13 +11,22 @@ def roll_single_die():
     input("\nPress Enter to roll:\n")
     roll = roll_dice()
     print("You have rolled:", roll)
+    results.append(roll) # stores results for a single die roll
 
 def roll_two_dice():
     """Function for rolling two dice"""
     input("\nPress Enter to roll:\n")
     roll1 = roll_dice()
     roll2 = roll_dice()
-    print("You have rolled:", roll1,'and',roll2)    
+    print("You have rolled:", roll1,'and',roll2) 
+    results.append((roll1, roll2))  # stores both dice rolls results
+
+def display_results():
+    """Function that display results of dice rolls"""
+    print("\nHere Are Your Roll Results:")
+    for i, result in enumerate(results,1):
+        print(f"Roll {i}: {result}")
+    print()
 
 def main():
     print("\nWelcome to the Dice Simulation Game! \n")
@@ -52,7 +63,8 @@ def main():
             else:
                 print("Wrong Input! Please enter 'switch', 'play', or 'stop' ")
                 #continue
-        
+            
+        display_results()
         print("\nThank You for Playing!")  # End of the game
         break  # Exit the outer loop to completely stop the game
 

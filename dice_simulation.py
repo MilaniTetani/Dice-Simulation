@@ -1,5 +1,6 @@
 import random
 from collections import Counter
+import json
 
 results = []  # holds the results of each roll
 roll_history = [] # list to store roll results
@@ -78,6 +79,19 @@ def calculate_statistics():
     
     print(f"\nTotal Rolls: {len(roll_history)}")
 
+def save_game_state(filename):
+    """Save the current game state to a file"""
+    game_state = { # dict to capture & organize the game's current data in one object
+        'results': results,
+        'roll_history': roll_history
+    }
+
+    with open(filename, 'w') as file: # opens the file according to the filename named by user, if not it does not exit it will be create
+                                    # 'with' ensures that the file is properly closed after the block of code is executed.
+        json.dump(game_state, file)  # 'game_state' is converted to a json format & writes it to the file.
+        # 'json.dump' serializes(edits) game_state and makes it a readable & storable format.
+
+    print(f"Game state saved to {filename}")
 
 def main():
     print("\nWelcome to the Dice Simulation Game! \n")

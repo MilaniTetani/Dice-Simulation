@@ -93,6 +93,20 @@ def save_game_state(filename):
 
     print(f"Game state saved to {filename}")
 
+def load_game_state(filename):
+    """Load a game state from a file"""
+    global results, roll_history
+
+    try:
+        with open(filename, 'r') as file:  # opens reads the file
+            game_state = json.load(file)
+            results = game_state.get('results', [])
+            roll_history = game_state.get('roll_history', [])
+            print(f"Game state loaded from {filename}")
+        
+    except FileNotFoundError:
+        print(f"No Saved Game State Found in {filename}")
+
 def main():
     print("\nWelcome to the Dice Simulation Game! \n")
 

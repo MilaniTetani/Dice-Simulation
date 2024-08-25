@@ -66,6 +66,8 @@ def calculate_statistics():
     for number in roll_history: # If number is a tuple (like from rolling two dice)
         if isinstance(number, tuple):
             flattened_history.extend(number) # Add each part of the tuple to the list
+        elif isinstance(number, list): # # If number is a list (e.g., nested list)
+            flattened_history.extend(number)
         else:
             flattened_history.append(number) # If it's a single number, just add it
     
@@ -121,7 +123,7 @@ def main():
             else:
                 print("Wrong input! Please Enter 1 or 2")
             
-            option = input("\nWould you like to switch between 1 die and 2 dice? (enter switch)\n\nContinue playing? (enter play)\n\nSee roll history? (enter h)\n\nOr stop playing? (enter stop)\n\nI would like to: ")
+            option = input("\nWould you like to switch between 1 die and 2 dice? (enter switch)\n\nContinue playing? (enter play)\n\nSee roll history? (enter h)\n\nSave game? (enter save)\n\nLoad game? (enter load)\n\nOr stop playing? (enter stop)\n\nI would like to: ")
 
             if option.lower() == "play":
                 continue # Repeats the loop, rolling the current choice of dice
@@ -136,6 +138,14 @@ def main():
                     print("You have change to 1 die!\n")
             elif option.lower() == "h":
                 display_roll_history()  # Display the roll history
+
+            elif option.lower() == "save":
+                filename = input("Enter filename to save your game state: ")
+                save_game_state(filename)
+            
+            elif option.lower() == "load":
+                filename = input("Enter the filename to load your game state: ")
+                load_game_state(filename)
 
             elif option.lower() == "stop":
                 break # Exits the inner loop to end the game

@@ -96,6 +96,10 @@ def load_game_state(filename):
         print(f"No Saved Game State Found in {filename}\nStarting a new game.\n")
         results = []    # Start fresh if no saved state is found
         roll_history = []
+    except json.JSONDecodeError:
+        print(f"Failed to load game state from {filename}. The file might be corrupted.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
         
 def save_game_state(filename):
     """Save the current game state to a file"""
@@ -103,13 +107,16 @@ def save_game_state(filename):
         'results': results,
         'roll_history': roll_history
     }
-
-    with open(filename, 'w') as file: # opens the file according to the filename named by user, if not it does not exit it will be create
-                                    # 'with' ensures that the file is properly closed after the block of code is executed.
-        json.dump(game_state, file)  # 'game_state' is converted to a json format & writes it to the file.
-        # 'json.dump' serializes(edits) game_state and makes it a readable & storable format.
-
-    print(f"Game state saved to {filename}")
+    try:
+        with open(filename, 'w') as file: # opens the file according to the filename named by user, if not it does not exit it will be create
+                                        # 'with' ensures that the file is properly closed after the block of code is executed.
+            json.dump(game_state, file)  # 'game_state' is converted to a json format & writes it to the file.
+            # 'json.dump' serializes(edits) game_state and makes it a readable & storable format.
+        print(f"Game state saved to {filename}")
+    except IOError as e:
+        print(f"Failed to save game state to {filename}: {e}")
+    except Exception as e:
+        print("An unexpected error occured: {e}")
 
 def main():
 
@@ -129,42 +136,43 @@ def main():
                 print("Invalid input! Please Enter a Number (1 or 2)")
         end_game = False  # Flag to indicate when to end the game
         while (True):
-            # if(choose == 1):
-            #     roll_single_die()
-            # else:
-            #     roll_two_dice()
-        
-            while(True):
-                if(choose == 1):
-                    roll_single_die()
-                else:
-                    roll_two_dice()
-                option = input("\nWould you like to switch between 1 die and 2 dice? (enter switch)\n\nContinue playing? (enter play)\n\nSee roll history? (enter h)\n\nSave game? (enter save)\n\nOr stop playing? (enter stop)\n\nI would like to: ")
-
-                if option.lower() == "play":
-                    continue # Repeats the loop, rolling the current choice of dice
-
-                elif option.lower() == "switch":
-                    if (choose == 1):
-                        choose = 2
-                        print("You have changed to 2 dice!\n")
-                        
-                    elif (choose == 2):
-                        choose = 1
-                        print("You have change to 1 die!\n")
-                elif option.lower() == "h":
-                    display_roll_history()  # Display the roll history
-
-                elif option.lower() == "save":
-                    filename = input("Enter filename to save your game state: ")
-                    save_game_state(filename)
+            if(choose == 1):
+                roll_single_die()
+            else:
+                roll_two_dice()
                 
-                elif option.lower() == "stop":
-                    end_game = True
-                    break # Exits the inner loop to end the game
+            option = input(
+                "\nWould you like to switch between 1 die and 2 dice? (enter switch)\n\n"
+                "Continue playing? (enter play)\n\n"
+                "See roll history? (enter h)\n\n"
+                "Save game? (enter save)\n\n"
+                "Or stop playing? (enter stop)\n\n"
+                "I would like to: ").lower()
+
+            if option == "play":
+                continue # Repeats the loop, rolling the current choice of dice
+
+            elif option == "switch":
+                if (choose == 1):
+                    choose = 2
+                    print("You have changed to 2 dice!\n")
+                elif (choose == 2):
+                    choose = 1
+                    print("You have change to 1 die!\n")
+
+            elif option == "h":
+                display_roll_history()  # Display the roll history
+
+            elif option == "save":
+                filename = input("Enter filename to save your game state: ")
+                save_game_state(filename)
                 
-                else:
-                    print("Wrong Input! Please enter 'switch', 'play', 'h', or 'stop' ")
+            elif option == "stop":
+                end_game = True
+                break # Exits the inner loop to end the game    
+            else:
+                print("Wrong Input! Please enter 'switch', 'play', 'h', or 'stop' ")
+            
             if end_game:
                 break   # Exits the outer loop to completely stop the game
                 

@@ -45,4 +45,7 @@ Feel free to contibute by creating issues or submiting pull requests for any of 
 ## Usage
 To use the Dice Simulation:
 1. Run the script.
-2. Follow the prompts to roll dice, switch between rolling one or two dice, display roll history while playing or stop playing.
+2. Load a file to save roll history (i.e., enter any filename of choice).
+3. Follow the prompts to roll dice, switch between rolling one or two dice, display roll history while playing or stop playing.
+4. Make sure to save your game state.
+5. When opt to stop, choose to delete your saved roll history on your file or not.

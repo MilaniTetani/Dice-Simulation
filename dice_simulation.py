@@ -1,6 +1,7 @@
 import random
 from collections import Counter
 import json
+import os
 
 results = []  # holds the results of each roll
 roll_history = [] # list to store roll results
@@ -118,6 +119,16 @@ def save_game_state(filename):
     except Exception as e:
         print("An unexpected error occured: {e}")
 
+def delete_game_state(filename):
+    """Function to delete the game state file if it exists."""
+    try:
+        if os.path.exists(filename):
+            os.remove(filename) # Delete the file
+        else:
+            print(f"File '{filename}' does not exist.")
+    except Exception as e:
+        print(f"An error occured while trying to delete the file: {e}")
+
 def main():
 
     print("\nWelcome to the Dice Simulation Game! \n")
@@ -168,7 +179,13 @@ def main():
                 save_game_state(filename)
                 
             elif option == "stop":
-                end_game = True
+                delete_game_state_opt = input(
+                    "\nWould you like to delete your saved game state? (yes/no): ").lower()
+                if delete_game_state_opt == "yes":
+                    filename = input("Enter the filename of the game state you want to delete: ")
+                    delete_game_state(filename)
+                else:
+                    end_game = True
                 break # Exits the inner loop to end the game    
             else:
                 print("Wrong Input! Please enter 'switch', 'play', 'h', or 'stop' ")

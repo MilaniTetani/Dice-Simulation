@@ -48,4 +48,4 @@ To use the Dice Simulation:
 2. Load a file to save roll history (i.e., enter any filename of choice).
 3. Follow the prompts to roll dice, switch between rolling one or two dice, display roll history while playing or stop playing.
 4. Make sure to save your game state.
-5. When opt to stop, choose to delete your saved roll history on your file or not.
+5. When opt to stop, choose whether to delete your saved roll history on your file (this will delete the file) or not.

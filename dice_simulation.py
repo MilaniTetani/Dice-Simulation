@@ -4,60 +4,104 @@ import json
 import os
 import tkinter as tk
 from tkinter import messagebox, filedialog
+from PIL import Image, ImageTk
 
 class DiceSimulationApp:
     def __init__(self, root):
+        """Initializes the game, loads dice images, and sets up the UI."""
         self.root = root
         self.root.title("Dice Simulation Game")
 
         self.results = []  # holds the results of each roll
         self.roll_history = [] # list to store roll results
         self.choose = 1 # Default to rolling 1 die
-
+        self.dice_size = (100, 100)  # Define the desired size for dice images
+        self.dice_images = self.load_resize_images()  # Load and resize dice images
+        # Load dice images
+        #self.dice_images = [ImageTk.PhotoImage(Image.open(f"die_face_{i}.png")) for i in range(1, 7)]
         self.setup_ui()  #Setup the Gui components
-
         self.load_game_state()  # Load game state on startup
 
+    def load_resize_images(self):
+        """Load dice images and resize them to the desired size."""
+        images = []  # array of the images
+        for i in range(1, 7):
+            image = Image.open(f"die_face_{i}.png")
+            resized_images = image.resize(self.dice_size, Image.LANCZOS)
+            images.append(ImageTk.PhotoImage(resized_images))
+        return images
+    
     def setup_ui(self):
+        """Sets up the user interface components for the dice simulation app."""
+        
+        # UI components
+        # & Using grid for consistency
+
+         # Dice image display
+        self.dice_label = tk.Label(self.root)
+        self.dice_label.grid(row=0, column=0, columnspan=2, pady=10, padx=10)
+
         # Result display
         self.result_label = tk.Label(self.root, text="Roll Result: ", font=("Arial", 16))
-        self.result_label.pack(pady=10)
+        self.result_label.grid(row=1, column=0, columnspan=2, pady=10)
 
         # Roll button
         self.roll_button = tk.Button(self.root, text="Roll Dice", command=self.roll_dice, font=("Arial", 14))
-        self.roll_button.pack(pady=5)
+        self.roll_button.grid(row=2, column=0, padx=5, pady=5, sticky='ew')
 
         # Switch button
         self.switch_button = tk.Button(self.root, text="Switch Dice", command=self.switch_dice, font=("Arial", 14))
-        self.switch_button.pack(pady=5)
+        self.switch_button.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
 
         # History button
         self.history_button = tk.Button(self.root, text="Show Roll History", command=self.display_results, font=("Arial", 14))
-        self.history_button.pack(pady=5)
+        self.history_button.grid(row=3, column=0, padx=5, pady=5, sticky='ew')
 
         # Save button
         self.save_button = tk.Button(self.root, text="Save Game", command=self.save_game_state, font=("Arial", 14))
-        self.save_button.pack(pady=5)
+        self.save_button.grid(row=3, column=1, padx=5, pady=5, sticky='ew')
+                                                            #  sticky='ew': Makes the button stretch horizontally to fill the space in its cell.
 
         # Exit button
         self.exit_button = tk.Button(self.root, text="Exit", command=self.exit_game, font=("Arial", 14))
-        self.exit_button.pack(pady=5)
+        self.exit_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky='ew')
 
         # Roll history display
         self.history_text = tk.Text(self.root, height=10, width=50, font=("Arial", 12))
-        self.history_text.pack(pady=10)
+        self.history_text.grid(row=5, column=0, columnspan=2, pady=10, padx=10, sticky='nsew')
+                                                                            #   sticky='nsew': Makes the text box expand both horizontally and vertically within its cell.
+         # Configure grid row and column weights
+        self.root.grid_rowconfigure(5, weight=1)
+        self.root.grid_columnconfigure(0, weight=1)
+        self.root.grid_columnconfigure(1, weight=1)
 
     def roll_dice(self): 
         """Function that rolls/simulates a random dice number between 1 and 6."""
         if self.choose == 1:
             roll = random.randint(1, 6) 
             self.result_label.config(text=f"Roll Results: {roll}")
+            self.dice_label.config(image=self.dice_images[roll-1])  # Update dice image
             self.results.append(roll)  # stores results for a single die roll
             self.record_roll(roll) #Record the result
         else:
             roll1 = random.randint(1, 6)
             roll2 = random.randint(1, 6)
             self.result_label.config(text=f"Roll Result: {roll1} and {roll2}")
+
+            # first dice image
+            self.dice_label.config(image=self.dice_images[roll1-1])  # Update dice image for the first die
+
+            # second Label to show the second dice image
+            # Check if the object 'self' (which refers to the instance of the class) has an attribute called 'dice_label2'.
+            # If 'self' does not have this attribute (i.e., 'dice_label2' doesn't exist yet), the code inside the if-block will run.
+            if not hasattr(self, 'dice_label2'):
+                # Create the 'dice_label2' attribute and assign it a new Label widget.
+                self.dice_label2 = tk.Label(self.root)
+                self.dice_label2.grid(row=0, column=1, pady=10)
+
+            # Update the second dice image
+            self.dice_label2.config(image=self.dice_images[roll2-1])
+            
             self.results.append((roll1, roll2))  # stores both dice rolls results
             self.record_roll((roll1, roll2))  # Record the result of both dice rolls
 
@@ -156,5 +200,6 @@ class DiceSimulationApp:
 if __name__=="__main__":
     root = tk.Tk()
     app = DiceSimulationApp(root)
+    root.iconbitmap("./dice.ico")
     root.mainloop()
 

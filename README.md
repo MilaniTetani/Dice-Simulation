@@ -31,6 +31,7 @@ source venv/bin/activate
 ```
 ### 4. Activate the Existing Virtual Environment
 If the venv folder already exists and contains the necessary packages, activate it:
+
 On Windows:
 ```bash
 venv\Scripts\activate

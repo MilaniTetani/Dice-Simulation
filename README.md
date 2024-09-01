@@ -17,7 +17,8 @@ Change to the project directory:
 cd Dice-Simulation
 ```
 ### 3. Set Up a Virtual Environment (if not already set up)
-If you do not have a virtual environment already set up, create and activate one:
+If you do not have a virtual environment already set up, create and activate one: 
+
 On Windows:
 ```bash
 python -m venv venv

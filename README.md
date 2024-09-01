@@ -1,10 +1,57 @@
 # Dice Simulation
 
 ## Description
-A simple dice stimulation that randomly picks a number between 1 and 6 for a die.
+A simple dice stimulation that rolls a die or 2 dice for one player.
 
 ## Installation
-Simply download and run the file in Thonny program, Python IDLE or VS code.
+To set up and run the Dice Simulation game on your local machine, follow these steps:
+
+### 1. Clone the Repository
+First, clone the repository to your local machine. Open a terminal and run:
+```bash
+git clone https://github.com/MilaniTetani/Dice-Simulation.git
+```
+### 2. Navigate to the Project Directory
+Change to the project directory:
+```bash
+cd Dice-Simulation
+```
+### 3. Set Up a Virtual Environment (if not already set up)
+If you do not have a virtual environment already set up, create and activate one:
+
+On Windows:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+On macOS/Linux:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+### 4. Activate the Existing Virtual Environment
+If the venv folder already exists and contains the necessary packages, activate it:
+On Windows:
+```bash
+venv\Scripts\activate
+```
+On macOS/Linux:
+```bash
+source venv/bin/activate
+```
+### 5. Running the Script
+To run the script, use the terminal within your project directory:
+```bash
+python dice_simulation.py
+```
+### 6. Note on PIL Imports
+Ensure that:
+- The virtual environment is activated before running the script.
+- The 'Pillow' library is installed in the virtual environment.
+### 7. Troubleshooting
+If you face any issues, make sure to:
+- Check the Python interpreter settings in VS Code to ensure it points to the virtual environment's interpreter.
+- Verify that the virtual environment contains all necessary packages by running pip list and checking for 'Pillow' in the output.
 
 ## Features
 - Roll a single die
@@ -44,8 +91,12 @@ Feel free to contibute by creating issues or submiting pull requests for any of 
 
 ## Usage
 To use the Dice Simulation:
-1. Run the script.
+1. Run the script after completing the Installation steps from 1 - 5.
 2. Load a file to save roll history (i.e., enter any filename of choice).
-3. Follow the prompts to roll dice, switch between rolling one or two dice, display roll history while playing or stop playing.
-4. Make sure to save your game state.
-5. When opt to stop, choose whether to delete your saved roll history on your file (this will delete the file) or not.
+3. Playing:
+   - 'Roll Dice' to roll.
+   - 'Switch Dice' to switch dice from 1 to 2 & vice verse.
+   - 'Save Game' to save current rolls.
+   - 'Show Roll History' show history rolls.
+   - 'Exit' to exit and can also choose to save the overall rolls from current rolls of the game or not. 
+
